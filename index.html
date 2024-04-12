@@ -1,0 +1,126 @@
+<html>
+    <body>
+        <style>
+            h1{
+                margin-left: 32%;
+            }
+            .play img, .maquina img{
+                display: inline-block;
+                height: 250px;
+                opacity: 0.3;
+                margin-left: 20px;
+                cursor: pointer;
+            }
+            .play, .maquina{
+                display: inline-block;
+               
+            }
+            .maquina{
+                margin-left: 50%;
+            }
+           
+            h2{
+                margin-left: 28%;
+                font-size: 50px;
+                margin-top: -20%;
+            }
+        </style>
+
+        <h1>Pedra, Papel e Tesoura</h1>
+        <hr>
+
+        <div class="play">
+            <div><img opt="pedra"  src="imagem/rock.png"></div>
+            <div><img opt="papel" src="imagem/paper.png"></div>
+            <div><img opt="tesoura" src="imagem/scisor.png"></div>
+        </div>
+
+        <div class="maquina">
+            <div><img opt="pedra" src="imagem/rock.png"></div>
+            <div><img opt="papel" src="imagem/paper.png"></div>
+            <div><img opt="tesoura" src="imagem/scisor.png"></div>
+        </div>
+
+        <h2 class="ganhador"></h2>
+        
+
+
+        <script>
+            var jogador = document.querySelectorAll('.play div > img');
+            var maquina = document.querySelectorAll('.maquina div');
+            var playOpt = " ";
+            var maquinaOpt = " ";
+
+
+            function ganhador1(){
+                let vencedor = document.querySelector('.ganhador');
+
+                if(playOpt == 'pedra' && maquinaOpt == 'pedra'){
+                   vencedor.innerHTML = 'EMPATE'
+                }else if(playOpt == 'pedra' && maquinaOpt == 'papel'){
+                    vencedor.innerHTML = 'INIMIGO GANHOU'
+                }else if(playOpt == 'pedra' && maquinaOpt == 'tesoura'){
+                    vencedor.innerHTML = 'PLAY GANHOU'
+                }
+                
+                else if(playOpt == 'papel' && maquinaOpt == 'pedra'){
+                    vencedor.innerHTML = "PLAY GANHOU"
+                }else if(playOpt == 'papel' && maquinaOpt == 'papel'){
+                    vencedor.innerHTML = 'EMPATE'
+                }else if(playOpt == 'papel' && maquinaOpt == 'tesoura'){
+                    vencedor.innerHTML = 'INIMIGO GANHOU'
+                }
+                
+                else if(playOpt == 'tesoura' && maquinaOpt == 'pedra'){
+                    vencedor.innerHTML = "INIMIGO GANHOU"
+                }else if(playOpt == 'tesoura' && maquinaOpt == 'papel'){
+                    vencedor.innerHTML = 'PLAY GANHOU'
+                }else if(playOpt == 'tesoura' && maquinaOpt == 'tesoura'){
+                    vencedor.innerHTML = 'EMPATE'
+                }
+
+
+            }
+
+            function resetarInimigo(){
+                for(var i = 0; i < maquina.length;i++){
+                    maquina[i].childNodes[0].style.opacity = 0.3;
+                }
+            }
+
+            function maquinaJoga(){
+                let rand = Math.floor(Math.random()*3);
+                resetarInimigo();
+                for(var i = 0; i < maquina.length;i++){
+                    if(i == rand){
+                        maquina[i].childNodes[0].style.opacity = 1;
+                        maquinaOpt = maquina[i].childNodes[0].getAttribute('opt');
+                    }
+                    
+                }
+                ganhador1();
+            }
+
+            function limparOpacity(){
+                for(var i = 0; i < jogador.length;i++){
+                    jogador[i].style.opacity = 0.3;
+                }
+            }
+
+            for(var i = 0; i < jogador.length;i++){
+                jogador[i].addEventListener('click', function(t){
+                    limparOpacity();
+                    t.target.style.opacity = 1;
+                    playOpt = t.target.getAttribute('opt')
+                    maquinaJoga();
+                });
+
+                
+            };
+
+
+
+        </script>
+    </body>
+
+</html>
